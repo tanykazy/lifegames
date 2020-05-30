@@ -1,0 +1,31 @@
+function lifegame(state) {
+    let current = JSON.parse(state);
+    let next = [];
+    for (let x = 0; x < current.length; x++) {
+        next[x] = [];
+        for (let y = 0; y < current[x].length; y++) {
+            let neighbor = current[(x + current.length - 1) % current.length][(y + current[x].length - 1) % current[x].length]
+                + current[(x + current.length - 1) % current.length][y]
+                + current[(x + current.length - 1) % current.length][(y + 1) % current[x].length]
+                + current[x][(y + current[x].length - 1) % current[x].length]
+                + current[x][(y + 1) % current[x].length]
+                + current[(x + 1) % current.length][(y + current[x].length - 1) % current[x].length]
+                + current[(x + 1) % current.length][y]
+                + current[(x + 1) % current.length][(y + 1) % current[x].length];
+            if (current[x][y] === 1) {
+                if (neighbor === 2 || neighbor === 3) {
+                    next[x][y] = 1;
+                } else {
+                    next[x][y] = 0;
+                }
+            } else {
+                if (neighbor === 3) {
+                    next[x][y] = 1;
+                } else {
+                    next[x][y] = 0;
+                }
+            }
+        }
+    }
+    return JSON.stringify(next);
+}
