@@ -29,3 +29,21 @@ function lifegame(state) {
     }
     return JSON.stringify(next);
 }
+
+function test() {
+    var state = JSON.stringify([
+        [0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0]
+    ]);
+    console.log(state);
+    for (var i = 0; i < 10; i++) {
+        var result = lifegame(state);
+        console.log(result);
+        state = result;
+    }
+}
+
+test();
