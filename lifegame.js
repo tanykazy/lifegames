@@ -1,3 +1,9 @@
+/**
+ * Return state next generation in Conway's life game.
+ * Rule is 23/3.
+ * @param {string} state JSON string of 2D array
+ * @return {string} Next state of input
+ */
 function lifegame(state) {
     let current = JSON.parse(state);
     let next = [];
@@ -32,10 +38,10 @@ function lifegame(state) {
 
 function test() {
     var state = JSON.stringify([
+        [1, 1, 1, 0, 0],
+        [1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0],
         [0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0],
         [0, 0, 0, 0, 0]
     ]);
     console.log(state);
