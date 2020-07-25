@@ -14,10 +14,6 @@ $ npm --version
 6.14.6
 ```
 
-## Description
-
-[Conway's Game of Life - Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
-
 ## Project setup
 ```
 npm install
