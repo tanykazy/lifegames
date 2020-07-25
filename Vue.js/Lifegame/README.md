@@ -1,4 +1,4 @@
-# lifegame
+# Lifegame
 
 ## Project setup
 ```
