@@ -48,8 +48,9 @@ function test() {
     for (var i = 0; i < 10; i++) {
         var result = lifegame(state);
         console.log(result);
-        state = result;
+        // state = result;
     }
 }
 
 test();
+
