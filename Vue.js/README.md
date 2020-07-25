@@ -1,5 +1,19 @@
 # lifegame
 
+## Overview
+
+Conway's Game of Life with Vue.js.
+
+## Requirement
+
+```
+$ node --version
+v12.18.3
+
+$ npm --version
+6.14.6
+```
+
 ## Project setup
 ```
 npm install
