@@ -16,11 +16,7 @@ func (b *Board) String() string {
 	var buf bytes.Buffer
 	for y := 0; y < b.h; y++ {
 		for x := 0; x < b.w; x++ {
-			if b.state[y][x] > 0 {
-				buf.WriteByte('1')
-			} else {
-				buf.WriteByte('0')
-			}
+			buf.WriteString(fmt.Sprint(b.state[y][x]))
 		}
 		buf.WriteByte('\n')
 	}
