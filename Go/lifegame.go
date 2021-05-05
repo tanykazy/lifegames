@@ -23,6 +23,35 @@ func (b *Board) String() string {
 	return buf.String()
 }
 
+func (b *Board) Step() {
+	n := MakeCells(b.w, b.h)
+	for y := 0; y < b.h; y++ {
+		for x := 0; x < b.w; x++ {
+			c := b.CountNeighbor(x, y)
+		}
+	}
+
+}
+
+func (b *Board) CountNeighbor(x, y int) int {
+	a := []int{-1, 1}
+	n := 0
+	for _, i := range a {
+		for _, j := range a {
+			c := b.ToroidalizeCell(x + j, y + i)
+		}
+	}
+	return n
+}
+
+func (b *Board) ToroidalizeCell(x, y int) Cell {
+	y += b.h
+	y %= b.h
+	x += b.w
+	x %= b.w
+	return b.state[y][x]
+}
+
 func MakeCells(w, h int) Cells {
 	cells := make(Cells, h)
 	for i := range cells {
@@ -40,7 +69,7 @@ func MakeBoard(w, h int) *Board {
 }
 
 func main() {
-	var board = MakeBoard(3, 2)
+	var board = MakeBoard(5, 10)
 	fmt.Println(board)
 }
 
