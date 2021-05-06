@@ -15,4 +15,4 @@ Conway's Game of Life
 ## lifegame with...
 - [JavaScript](./JavaScript/)
 - [Vue.js](./Vue.js/)
-
+- [Go](./Go/)
