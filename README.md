@@ -16,3 +16,4 @@ Conway's Game of Life
 - [JavaScript](./JavaScript/)
 - [Vue.js](./Vue.js/)
 - [Go](./Go/)
+- [Python](./Python/)
