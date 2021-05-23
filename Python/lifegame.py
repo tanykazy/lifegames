@@ -1,27 +1,27 @@
 #! /usr/bin/env python
 
 from random import choice
-from time import sleep
 
 class Board:
     def __init__(self, w, h):
         self.__w = w
         self.__h = h
         self.__s = self.__makecells(w, h)
-        # self.__s[0][0] = 1
-        # self.__s[1][0] = 1
-        # self.__s[2][0] = 1
-        # self.__s[0][1] = 1
-        # self.__s[2][2] = 1
         self.randomize()
+#        self.__s[0][0] = 1
+#        self.__s[1][0] = 1
+#        self.__s[2][0] = 1
+#        self.__s[0][1] = 1
+#        self.__s[2][2] = 1
 
     def __str__(self):
-        b = ''
+        a = []
         for c in self.__s:
+            b = ''
             for l in c:
                 b += str(l)
-            b += '\n'
-        return b
+            a.append(b)
+        return '\n'.join(a)
 
     def __makecells(self, w, h):
         return [[0 for x in range(w)]for y in range(h)]
@@ -71,8 +71,13 @@ class Board:
 
 
 if __name__ == "__main__":
-    board = Board(10, 10)
-    for i in range(100):
+    from shutil import get_terminal_size
+    from time import sleep
+
+    ts = get_terminal_size()
+    board = Board(ts.columns, ts.lines - 1)
+    for i in range(300):
         print(board)
         board.step()
         sleep(1 / 10)
+
