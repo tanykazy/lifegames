@@ -7,7 +7,6 @@ class Board:
         self.h = h
         self.w = w
         self.s = self.makecells(h, w)
-        self.randomize()
 #        self.s[0][0] = 1
 #        self.s[1][0] = 1
 #        self.s[2][0] = 1
@@ -73,7 +72,9 @@ if __name__ == "__main__":
 
     ts = get_terminal_size()
     board = Board(ts.lines - 1, ts.columns)
+    board.randomize()
     for i in range(300):
         print(board)
         board.step()
         sleep(1 / 10)
+
