@@ -1,6 +1,9 @@
 <template>
   <div id="lifegame">
-    <lifegame-button v-on:start="startGame" v-on:stop="stopGame"></lifegame-button>
+    <lifegame-button
+      v-on:start="startGame"
+      v-on:stop="stopGame"
+    ></lifegame-button>
     <lifegame-grid
       v-bind:row="row"
       v-bind:column="column"
@@ -31,8 +34,8 @@ export default {
   },
   data: function () {
     return {
-      row: 50,
-      column: 50,
+      row: 0,
+      column: 0,
       cellsize: 12,
       map: null,
       timer: {
@@ -44,6 +47,8 @@ export default {
   watch: {},
   methods: {
     init: function () {
+      this.row = 30;
+      this.column = 30;
       this.map = [];
       for (let x = 0; x < this.row; x++) {
         this.map[x] = [];
@@ -61,10 +66,13 @@ export default {
       this.map = this.map.slice();
     },
     startGame: function () {
-      this.timer.id = setInterval(this.nextGeneration, this.timer.interval);
+      if (!this.timer.id) {
+        this.timer.id = setInterval(this.nextGeneration, this.timer.interval);
+      }
     },
     stopGame: function () {
       clearInterval(this.timer.id);
+      this.timer.id = 0;
     },
     nextGeneration: function () {
       let next = [];

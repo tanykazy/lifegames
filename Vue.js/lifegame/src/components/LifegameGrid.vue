@@ -70,6 +70,27 @@ export default {
     map: Array,
   },
   watch: {
+    row: {
+      handler: function () {
+        this.width = this.row * this.cellsize;
+        this.height = this.column * this.cellsize;
+        this.viewBox = [0, 0, this.width, this.height].join(" ");
+      },
+    },
+    column: {
+      handler: function () {
+        this.width = this.row * this.cellsize;
+        this.height = this.column * this.cellsize;
+        this.viewBox = [0, 0, this.width, this.height].join(" ");
+      },
+    },
+    cellsize: {
+      handler: function () {
+        this.width = this.row * this.cellsize;
+        this.height = this.column * this.cellsize;
+        this.viewBox = [0, 0, this.width, this.height].join(" ");
+      },
+    },
     map: {
       handler: function (map) {
         this.drawcells(map);
@@ -118,6 +139,11 @@ export default {
     this.height = this.column * this.cellsize;
     this.viewBox = [0, 0, this.width, this.height].join(" ");
   },
+  // updated: function () {
+  //   this.width = this.row * this.cellsize;
+  //   this.height = this.column * this.cellsize;
+  //   this.viewBox = [0, 0, this.width, this.height].join(" ");
+  // },
 };
 </script>
 
