@@ -40,7 +40,7 @@ export default {
       map: null,
       timer: {
         id: 0,
-        interval: 200,
+        interval: 100,
       },
     };
   },
@@ -112,7 +112,6 @@ export default {
       );
     },
   },
-  created: function () {},
   mounted: function () {
     this.$nextTick(this.init());
   },
@@ -126,5 +125,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0;
+  padding: 0;
 }
 </style>

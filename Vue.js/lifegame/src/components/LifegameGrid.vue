@@ -3,7 +3,6 @@
     id="grid"
     v-bind:width="width"
     v-bind:height="height"
-    v-bind:viewBox="viewBox"
     v-on:click.left="click"
   />
 </template>
@@ -58,9 +57,8 @@ export default {
   name: "LifegameGrid",
   data: function () {
     return {
-      width: 0,
-      height: 0,
-      viewBox: "0 0 0 0",
+      width: this.width,
+      height: this.height,
     };
   },
   props: {
@@ -72,23 +70,17 @@ export default {
   watch: {
     row: {
       handler: function () {
-        this.width = this.row * this.cellsize;
-        this.height = this.column * this.cellsize;
-        this.viewBox = [0, 0, this.width, this.height].join(" ");
+        this.resize();
       },
     },
     column: {
       handler: function () {
-        this.width = this.row * this.cellsize;
-        this.height = this.column * this.cellsize;
-        this.viewBox = [0, 0, this.width, this.height].join(" ");
+        this.resize();
       },
     },
     cellsize: {
       handler: function () {
-        this.width = this.row * this.cellsize;
-        this.height = this.column * this.cellsize;
-        this.viewBox = [0, 0, this.width, this.height].join(" ");
+        this.resize();
       },
     },
     map: {
@@ -133,22 +125,21 @@ export default {
         this.$emit("click-grid", { x: x, y: y, event });
       }
     },
+    resize: function () {
+      this.width = this.row * this.cellsize;
+      this.height = this.column * this.cellsize;
+    },
   },
   mounted: function () {
-    this.width = this.row * this.cellsize;
-    this.height = this.column * this.cellsize;
-    this.viewBox = [0, 0, this.width, this.height].join(" ");
+    this.resize();
   },
-  // updated: function () {
-  //   this.width = this.row * this.cellsize;
-  //   this.height = this.column * this.cellsize;
-  //   this.viewBox = [0, 0, this.width, this.height].join(" ");
-  // },
 };
 </script>
 
 <style scoped>
 #grid {
   border: 1px solid #000000;
+  margin: 0;
+  padding: 0;
 }
 </style>
