@@ -1,9 +1,5 @@
 # lifegame
 
-## Overview
-
-Conway's Game of Life with Vue.js.
-
 ## Requirement
 
 ```
