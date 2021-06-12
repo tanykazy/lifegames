@@ -3,6 +3,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
+
+#define FAILURE false
+#define SUCCESS true
+
+typedef bool result;
 
 typedef char cell;
 typedef cell **cells;
@@ -14,8 +21,8 @@ typedef struct
     cells s;
 } board;
 
-cells make_cells(int w, int h, board *b);
-board *make_board(int w, int h);
+result make_board(board **b_pp, int w, int h);
+result make_cells(cells *c_p, int w, int h);
 cell rand_cell(void);
 void print_board(board *b);
 

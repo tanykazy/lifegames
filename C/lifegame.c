@@ -2,63 +2,81 @@
 
 int main(int argc, char *argv[])
 {
-	board *b;
-	b = make_board(10, 10);
-	print_board(b);
-	free(b->s);
-	free(b);
-	return 0;
+	board *b_p = NULL;
+	result r;
+	r = make_board(&b_p, 10, 10);
+	if (r == FAILURE)
+	{
+		free(b_p);
+		return EXIT_FAILURE;
+	}
+	print_board(b_p);
+	free(b_p->s);
+	free(b_p);
+	return EXIT_SUCCESS;
 }
 
-cells make_cells(int w, int h, board *b)
+result make_board(board **b_pp, int w, int h)
+{
+	board *b = NULL;
+	unsigned int seed;
+	result r;
+
+	b = malloc(sizeof(board));
+	if (b == NULL)
+	{
+		return FAILURE;
+	}
+
+	seed = time(NULL);
+	srand(seed);
+
+	b->w = w;
+	b->h = h;
+	r = make_cells(&b->s, w, h);
+	if (r == FAILURE)
+	{
+		free(b);
+		return FAILURE;
+	}
+
+	*b_pp = b;
+	return SUCCESS;
+}
+
+result make_cells(cells *c_p, int w, int h)
 {
 	int i;
 	int j;
-	cells cells_pp;
+	cells c = NULL;
 
-	cells_pp = (cells)malloc(sizeof(cell *) * h);
-	if (cells_pp == NULL)
+	c = (cells)malloc(sizeof(cell *) * h);
+	if (c == NULL)
 	{
-		free(b);
-		exit(EXIT_FAILURE);
+		return FAILURE;
 	}
 
 	for (i = 0; i < h; i++)
 	{
-		cells_pp[i] = (cell *)malloc(sizeof(cell) * w);
-		if (cells_pp[i] == NULL)
+		c[i] = (cell *)malloc(sizeof(cell) * w);
+		if (c[i] == NULL)
 		{
 			for (; i > 0; i--)
 			{
-				free(cells_pp[i]);
+				free(c[i]);
 			}
-			free(cells_pp);
-			free(b);
-			exit(EXIT_FAILURE);
+			free(c);
+			return FAILURE;
 		}
 
 		for (j = 0; j < w; j++)
 		{
-			cells_pp[i][j] = rand_cell();
+			c[i][j] = rand_cell();
 		}
 	}
 
-	return cells_pp;
-}
-
-board *make_board(int w, int h)
-{
-	board *board_p = (board *)malloc(sizeof(board));
-	if (board_p == NULL)
-	{
-		exit(EXIT_FAILURE);
-	}
-
-	board_p->w = w;
-	board_p->h = h;
-	board_p->s = make_cells(w, h, board_p);
-
-	return board_p;
+	*c_p = c;
+	return SUCCESS;
 }
 
 cell rand_cell(void)
