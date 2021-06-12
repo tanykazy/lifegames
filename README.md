@@ -10,6 +10,7 @@ Conway's Game of Life
 
 ## lifegame with...
 - [JavaScript](./JavaScript/)
+- [C](./C/)
 - [Vue.js](./Vue.js/)
 - [Go](./Go/)
 - [Python](./Python/)
