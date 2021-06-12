@@ -50,7 +50,7 @@ result make_cells(cells *c_p, int w, int h)
 	int j;
 	cells c = NULL;
 
-	c = (cells)malloc(sizeof(cell *) * h);
+	c = (cells)malloc(h * sizeof(cell *));
 	if (c == NULL)
 	{
 		return FAILURE;
@@ -58,7 +58,7 @@ result make_cells(cells *c_p, int w, int h)
 
 	for (i = 0; i < h; i++)
 	{
-		c[i] = (cell *)malloc(sizeof(cell) * w);
+		c[i] = (cell *)malloc(w * sizeof(cell));
 		if (c[i] == NULL)
 		{
 			for (; i > 0; i--)
