@@ -14,16 +14,24 @@ typedef bool result;
 typedef char cell;
 typedef cell **cells;
 
-typedef struct
+struct board
 {
     int w;
     int h;
-    cells s;
-} board;
+    struct state *s;
+};
 
-result make_board(board **b_pp, int w, int h);
-result make_cells(cells *c_p, int w, int h);
+struct state
+{
+    cells c;
+    cell *_c;
+};
+
+result make_board(struct board **b_pp, int w, int h);
+result make_state(struct state **s_pp);
+result make_cells(struct state *s_p, int w, int h);
 cell rand_cell(void);
-void print_board(board *b);
+void free_state(struct state *s_p);
+void print_board(struct board *b);
 
 #endif /* __LIFEGAME_H__ */

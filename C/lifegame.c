@@ -2,27 +2,29 @@
 
 int main(int argc, char *argv[])
 {
-	board *b_p = NULL;
+	struct board *b_p = NULL;
 	result r;
-	r = make_board(&b_p, 10, 10);
+
+	r = make_board(&b_p, 8, 7);
 	if (r == FAILURE)
 	{
-		free(b_p);
 		return EXIT_FAILURE;
 	}
+
 	print_board(b_p);
-	free(b_p->s);
+
+	free_state(b_p->s);
 	free(b_p);
 	return EXIT_SUCCESS;
 }
 
-result make_board(board **b_pp, int w, int h)
+result make_board(struct board **b_pp, int w, int h)
 {
-	board *b = NULL;
+	struct board *b = NULL;
 	unsigned int seed;
 	result r;
 
-	b = (board *)malloc(sizeof(board));
+	b = (struct board *)malloc(sizeof(struct board));
 	if (b == NULL)
 	{
 		return FAILURE;
@@ -33,9 +35,17 @@ result make_board(board **b_pp, int w, int h)
 
 	b->w = w;
 	b->h = h;
-	r = make_cells(&b->s, w, h);
+	r = make_state(&b->s);
 	if (r == FAILURE)
 	{
+		free(b);
+		return FAILURE;
+	}
+
+	r = make_cells(b->s, w, h);
+	if (r == FAILURE)
+	{
+		free(b->s);
 		free(b);
 		return FAILURE;
 	}
@@ -44,38 +54,54 @@ result make_board(board **b_pp, int w, int h)
 	return SUCCESS;
 }
 
-result make_cells(cells *c_p, int w, int h)
+result make_state(struct state **s_pp)
+{
+	struct state *s = NULL;
+	s = (struct state *)malloc(sizeof(struct state));
+	if (s == NULL)
+	{
+		return FAILURE;
+	}
+
+	*s_pp = s;
+	return SUCCESS;
+}
+
+result make_cells(struct state *s_p, int w, int h)
 {
 	int i;
 	int j;
 	cells c = NULL;
+	cell *_c = NULL;
 
-	c = (cells)malloc(h * sizeof(cell *));
+	c = (cells)malloc(w * sizeof(cell *));
 	if (c == NULL)
 	{
 		return FAILURE;
 	}
 
-	for (i = 0; i < h; i++)
+	_c = (cell *)malloc(w * h * sizeof(cell));
+	if (_c == NULL)
 	{
-		c[i] = (cell *)malloc(w * sizeof(cell));
-		if (c[i] == NULL)
-		{
-			for (; i > 0; i--)
-			{
-				free(c[i]);
-			}
-			free(c);
-			return FAILURE;
-		}
+		free(c);
+		return FAILURE;
+	}
 
-		for (j = 0; j < w; j++)
+	for (i = 0; i < w; i++)
+	{
+		c[i] = _c + i * h;
+	}
+
+	for (i = 0; i < w; i++)
+	{
+		for (j = 0; j < h; j++)
 		{
 			c[i][j] = rand_cell();
 		}
 	}
 
-	*c_p = c;
+	s_p->c = c;
+	s_p->_c = _c;
 	return SUCCESS;
 }
 
@@ -85,13 +111,27 @@ cell rand_cell(void)
 	return (cell)c;
 }
 
-void print_board(board *b)
+void free_state(struct state *s_p)
 {
-	for (int w = 0; w < b->w; w++)
+	free(s_p->_c);
+	s_p->_c = NULL;
+	free(s_p->c);
+	s_p->c = NULL;
+}
+
+void print_board(struct board *b)
+{
+	int i;
+	int j;
+	int h = b->h;
+	int w = b->w;
+	cells c = b->s->c;
+
+	for (i = 0; i < w; i++)
 	{
-		for (int h = 0; h < b->h; h++)
+		for (j = 0; j < h; j++)
 		{
-			if (b->s[h][w] == 0)
+			if (c[i][j] == 0)
 			{
 				printf("%c", ' ');
 			}
