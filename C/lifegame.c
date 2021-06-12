@@ -22,7 +22,7 @@ result make_board(board **b_pp, int w, int h)
 	unsigned int seed;
 	result r;
 
-	b = malloc(sizeof(board));
+	b = (board *)malloc(sizeof(board));
 	if (b == NULL)
 	{
 		return FAILURE;
