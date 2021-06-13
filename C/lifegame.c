@@ -1,32 +1,36 @@
 #include "lifegame.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char **envp)
 {
 	unsigned int seed;
 	result r;
 	struct board *b_p = NULL;
+	int w;
+	int h;
+	int s;
+	int i;
 
 	seed = time(NULL);
 	srand(seed);
 
-	r = make_board(&b_p, 20, 20);
+	w = read_width(argc, argv);
+	h = read_height(argc, argv);
+	s = read_step(argc, argv);
+
+	r = make_board(&b_p, w, h);
 	if (r == FAILURE)
 	{
 		return EXIT_FAILURE;
 	}
 
-	b_p->s->c[0][0] = 1;
-	b_p->s->c[0][1] = 1;
-	b_p->s->c[0][2] = 1;
-	b_p->s->c[1][0] = 1;
-	b_p->s->c[2][1] = 1;
+	init_state(b_p);
 
-	for (int i = 0; i < 100; i++)
+	for (i = 0; i < s; i++)
 	{
-		print_board(b_p);
 		next(b_p);
-		putc('\n', stdout);
 	}
+
+	print_board(b_p);
 
 	free_state(b_p);
 	free(b_p);
@@ -35,11 +39,11 @@ int main(int argc, char *argv[])
 
 result next(struct board *b_p)
 {
-	int i;
-	int j;
+	int x;
+	int y;
 	int c;
 	result r;
-	cells next;
+	cells n;
 	cells current = b_p->s->c;
 	int w = b_p->w;
 	int h = b_p->h;
@@ -51,33 +55,33 @@ result next(struct board *b_p)
 		return FAILURE;
 	}
 
-	next = s->c;
+	n = s->c;
 
-	for (i = 0; i < w; i++)
+	for (y = 0; y < h; y++)
 	{
-		for (j = 0; j < h; j++)
+		for (x = 0; x < w; x++)
 		{
-			c = count_neighbor(i, j, b_p);
-			if (current[i][j] > 0)
+			c = count_neighbor(x, y, b_p);
+			if (current[y][x] > 0)
 			{
 				if (c == 2 || c == 3)
 				{
-					next[i][j] = 1;
+					n[y][x] = 1;
 				}
 				else
 				{
-					next[i][j] = 0;
+					n[y][x] = 0;
 				}
 			}
 			else
 			{
 				if (c == 3)
 				{
-					next[i][j] = 1;
+					n[y][x] = 1;
 				}
 				else
 				{
-					next[i][j] = 0;
+					n[y][x] = 0;
 				}
 			}
 		}
@@ -114,10 +118,10 @@ int count_neighbor(int x, int y, struct board *b)
 cell toroidalize_cell(int x, int y, struct board *b)
 {
 	x += b->w;
-	y += b->h;
 	x %= b->w;
+	y += b->h;
 	y %= b->h;
-	return b->s->c[x][y];
+	return b->s->c[y][x];
 }
 
 result make_board(struct board **b_pp, int w, int h)
@@ -174,29 +178,28 @@ result make_cells(struct state *s_p, int w, int h)
 	cells c = NULL;
 	cell *_c = NULL;
 
-	c = (cells)malloc(w * sizeof(cell *));
+	c = (cells)malloc(h * sizeof(cell *));
 	if (c == NULL)
 	{
 		return FAILURE;
 	}
 
-	_c = (cell *)malloc(w * h * sizeof(cell));
+	_c = (cell *)malloc(h * w * sizeof(cell));
 	if (_c == NULL)
 	{
 		free(c);
 		return FAILURE;
 	}
 
-	for (i = 0; i < w; i++)
+	for (i = 0; i < h; i++)
 	{
-		c[i] = _c + i * h;
+		c[i] = _c + i * w;
 	}
 
-	for (i = 0; i < w; i++)
+	for (i = 0; i < h; i++)
 	{
-		for (j = 0; j < h; j++)
+		for (j = 0; j < w; j++)
 		{
-			// c[i][j] = rand_cell();
 			c[i][j] = 0;
 		}
 	}
@@ -204,6 +207,69 @@ result make_cells(struct state *s_p, int w, int h)
 	s_p->c = c;
 	s_p->_c = _c;
 	return SUCCESS;
+}
+
+void init_state(struct board *b_p)
+{
+	int ch;
+	int x = 0;
+	int y = 0;
+	int w = b_p->w;
+	int h = b_p->h;
+	cells c = b_p->s->c;
+
+	if (isatty(fileno(stdin)) == 0)
+	{
+		while ((ch = getc(stdin)) != EOF)
+		{
+			if (y < h)
+			{
+				if (ch == '\n')
+				{
+					y++;
+					x = 0;
+				}
+				else
+				{
+					if (x < w)
+					{
+						if (ch == '0')
+						{
+							c[y][x] = 0;
+						}
+						else if (ch == '1')
+						{
+							c[y][x] = 1;
+						}
+						x++;
+					}
+					else
+					{
+						continue;
+					}
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		// c[0][0] = 1;
+		// c[0][1] = 1;
+		// c[0][2] = 1;
+		// c[1][0] = 1;
+		// c[2][1] = 1;
+		for (y = 0; y < h; y++)
+		{
+			for (x = 0; x < w; x++)
+			{
+				c[y][x] = rand_cell();
+			}
+		}
+	}
 }
 
 cell rand_cell(void)
@@ -230,19 +296,82 @@ void print_board(struct board *b)
 	int w = b->w;
 	cells c = b->s->c;
 
-	for (i = 0; i < w; i++)
+	for (i = 0; i < h; i++)
 	{
-		for (j = 0; j < h; j++)
+		for (j = 0; j < w; j++)
 		{
 			if (c[i][j] == 0)
 			{
-				putc(' ', stdout);
+				putc('0', stdout);
 			}
 			else
 			{
-				putc('*', stdout);
+				putc('1', stdout);
 			}
 		}
 		putc('\n', stdout);
 	}
+}
+
+int read_width(int argc, char *argv[])
+{
+	int i;
+	int w = 0;
+	for (i = 0; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-w") == 0)
+		{
+			if (i + 1 < argc)
+			{
+				w = atoi(argv[i + 1]);
+			}
+		}
+	}
+	if (w > 0)
+	{
+		return w;
+	}
+	return DEFAULT_WIDTH;
+}
+
+int read_height(int argc, char *argv[])
+{
+	int i;
+	int h = 0;
+	for (i = 0; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-h") == 0)
+		{
+			if (i + 1 < argc)
+			{
+				h = atoi(argv[i + 1]);
+			}
+		}
+	}
+	if (h > 0)
+	{
+		return h;
+	}
+	return DEFAULT_HEIGHT;
+}
+
+int read_step(int argc, char *argv[])
+{
+	int i;
+	int s = 0;
+	for (i = 0; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-s") == 0)
+		{
+			if (i + 1 < argc)
+			{
+				s = atoi(argv[i + 1]);
+			}
+		}
+	}
+	if (s > 0)
+	{
+		return s;
+	}
+	return DEFAULT_STEP;
 }
