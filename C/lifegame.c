@@ -15,17 +15,17 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	// b_p->s->c[0][0] = 1;
-	// b_p->s->c[0][1] = 1;
-	// b_p->s->c[0][2] = 1;
-	// b_p->s->c[1][0] = 1;
-	// b_p->s->c[2][1] = 1;
+	b_p->s->c[0][0] = 1;
+	b_p->s->c[0][1] = 1;
+	b_p->s->c[0][2] = 1;
+	b_p->s->c[1][0] = 1;
+	b_p->s->c[2][1] = 1;
 
 	for (int i = 0; i < 100; i++)
 	{
 		print_board(b_p);
 		next(b_p);
-		// printf("%c", '\n');
+		putc('\n', stdout);
 	}
 
 	free_state(b_p);
@@ -236,13 +236,13 @@ void print_board(struct board *b)
 		{
 			if (c[i][j] == 0)
 			{
-				printf("%c", ' ');
+				putc(' ', stdout);
 			}
 			else
 			{
-				printf("%c", '*');
+				putc('*', stdout);
 			}
 		}
-		printf("%c", '\n');
+		putc('\n', stdout);
 	}
 }
