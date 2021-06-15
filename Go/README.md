@@ -1,1 +1,8 @@
+# lifegame
+
+
+## Usage
+```
+go run .
+```
 
