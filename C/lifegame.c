@@ -358,7 +358,7 @@ int read_height(int argc, char *argv[])
 int read_step(int argc, char *argv[])
 {
 	int i;
-	int s = 0;
+	int s = DEFAULT_STEP;
 	for (i = 0; i < argc; i++)
 	{
 		if (strcmp(argv[i], "-s") == 0)
@@ -369,7 +369,7 @@ int read_step(int argc, char *argv[])
 			}
 		}
 	}
-	if (s > 0)
+	if (s >= 0)
 	{
 		return s;
 	}

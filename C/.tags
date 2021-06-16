@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+$(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
+%.o	Makefile	/^%.o: %.c$/;"	t
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -Wall$/;"	m
+DEFAULT_HEIGHT	lifegame.h	/^#define DEFAULT_HEIGHT /;"	d
+DEFAULT_STEP	lifegame.h	/^#define DEFAULT_STEP /;"	d
+DEFAULT_WIDTH	lifegame.h	/^#define DEFAULT_WIDTH /;"	d
+Description	README.md	/^## Description$/;"	s	chapter:lifegame
+FAILURE	lifegame.h	/^#define FAILURE /;"	d
+OBJS	Makefile	/^OBJS = $(SRCS:.c=.o)$/;"	m
+Overview	README.md	/^## Overview$/;"	s	chapter:lifegame
+SRCS	Makefile	/^SRCS = lifegame.c$/;"	m
+SUCCESS	lifegame.h	/^#define SUCCESS /;"	d
+TARGET	Makefile	/^TARGET = lifegame$/;"	m
+__LIFEGAME_H__	lifegame.h	/^#define __LIFEGAME_H__$/;"	d
+_c	lifegame.h	/^    cell *_c;$/;"	m	struct:state	typeref:typename:cell *
+all	Makefile	/^all: clean build$/;"	t
+board	lifegame.h	/^struct board$/;"	s
+build	Makefile	/^build: $(TARGET)$/;"	t
+c	lifegame.h	/^    cells c;$/;"	m	struct:state	typeref:typename:cells
+cell	lifegame.h	/^typedef char cell;$/;"	t	typeref:typename:char
+cells	lifegame.h	/^typedef cell **cells;$/;"	t	typeref:typename:cell **
+clean	Makefile	/^clean:$/;"	t
+count_neighbor	lifegame.c	/^int count_neighbor(int x, int y, struct board *b)$/;"	f	typeref:typename:int
+free_state	lifegame.c	/^void free_state(struct board *b_p)$/;"	f	typeref:typename:void
+h	lifegame.h	/^    int h;$/;"	m	struct:board	typeref:typename:int
+init_state	lifegame.c	/^void init_state(struct board *b_p)$/;"	f	typeref:typename:void
+lifegame	README.md	/^# lifegame$/;"	c
+main	lifegame.c	/^int main(int argc, char *argv[], char **envp)$/;"	f	typeref:typename:int
+make_board	lifegame.c	/^result make_board(struct board **b_pp, int w, int h)$/;"	f	typeref:typename:result
+make_cells	lifegame.c	/^result make_cells(struct state *s_p, int w, int h)$/;"	f	typeref:typename:result
+make_state	lifegame.c	/^result make_state(struct state **s_pp, int w, int h)$/;"	f	typeref:typename:result
+next	lifegame.c	/^result next(struct board *b_p)$/;"	f	typeref:typename:result
+print_board	lifegame.c	/^void print_board(struct board *b)$/;"	f	typeref:typename:void
+rand_cell	lifegame.c	/^cell rand_cell(void)$/;"	f	typeref:typename:cell
+read_height	lifegame.c	/^int read_height(int argc, char *argv[])$/;"	f	typeref:typename:int
+read_step	lifegame.c	/^int read_step(int argc, char *argv[])$/;"	f	typeref:typename:int
+read_width	lifegame.c	/^int read_width(int argc, char *argv[])$/;"	f	typeref:typename:int
+result	lifegame.h	/^typedef bool result;$/;"	t	typeref:typename:bool
+s	lifegame.h	/^    struct state *s;$/;"	m	struct:board	typeref:struct:state *
+state	lifegame.h	/^struct state$/;"	s
+toroidalize_cell	lifegame.c	/^cell toroidalize_cell(int x, int y, struct board *b)$/;"	f	typeref:typename:cell
+w	lifegame.h	/^    int w;$/;"	m	struct:board	typeref:typename:int
