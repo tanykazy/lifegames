@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+.form-wrapper{
+    margin: 4px;
+}
+
+.canvas-wrapper{
+    margin: 4px;
+}
+
+.canvas-wrapper canvas{
+    top: 0px;
+    left: 0px;
+}

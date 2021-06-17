@@ -1,0 +1,48 @@
+{
+    "manifest_version": 2,
+    "name": "Life Game",
+    "version": "0",
+    "description": "Conway's Game of Life",
+    "icons": {
+        "16": "images/icon.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "16": "images/icon.png"
+        },
+        "default_title": "Life Game",
+        "default_popup": "popup.html"
+    },
+    "background": {},
+    "chrome_url_overrides": {},
+    "commands": {},
+    "content_scripts": [],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "event_rules": [],
+    "externally_connectable": {
+        "ids": [],
+        "matches": [],
+        "accepts_tls_channel_id": false
+    },
+    "file_system_provider_capabilities": {
+        "configurable": true,
+        "watchable": false,
+        "multiple_mounts": true,
+        "source": "network"
+    },
+    "homepage_url": "https://github.com/tanykazy/ChromeExtensions",
+    "import": [],
+    "incognito": "split",
+    "minimum_chrome_version": "80.0",
+    "nacl_modules": [],
+    "offline_enabled": true,
+    "optional_permissions": [],
+    "permissions": [
+        "activeTab",
+        "tabs"
+    ],
+    "requirements": {},
+    "tts_engine": {},
+    "version_name": "dev",
+    "web_accessible_resources": []
+}
