@@ -49,3 +49,4 @@ int read_height(int argc, char *argv[]);
 int read_step(int argc, char *argv[]);
 
 #endif /* __LIFEGAME_H__ */
+

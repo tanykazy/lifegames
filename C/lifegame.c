@@ -34,6 +34,7 @@ int main(int argc, char *argv[], char **envp)
 
 	free_state(b_p);
 	free(b_p);
+
 	return EXIT_SUCCESS;
 }
 
@@ -89,6 +90,7 @@ result next(struct board *b_p)
 
 	free_state(b_p);
 	b_p->s = s;
+
 	return SUCCESS;
 }
 
@@ -121,6 +123,7 @@ cell toroidalize_cell(int x, int y, struct board *b)
 	x %= b->w;
 	y += b->h;
 	y %= b->h;
+
 	return b->s->c[y][x];
 }
 
@@ -146,6 +149,7 @@ result make_board(struct board **b_pp, int w, int h)
 	}
 
 	*b_pp = b;
+
 	return SUCCESS;
 }
 
@@ -168,6 +172,7 @@ result make_state(struct state **s_pp, int w, int h)
 	}
 
 	*s_pp = s;
+
 	return SUCCESS;
 }
 
@@ -206,6 +211,7 @@ result make_cells(struct state *s_p, int w, int h)
 
 	s_p->c = c;
 	s_p->_c = _c;
+
 	return SUCCESS;
 }
 
@@ -275,6 +281,7 @@ void init_state(struct board *b_p)
 cell rand_cell(void)
 {
 	int c = rand() % 2;
+
 	return (cell)c;
 }
 
@@ -331,6 +338,7 @@ int read_width(int argc, char *argv[])
 	{
 		return w;
 	}
+
 	return DEFAULT_WIDTH;
 }
 
@@ -352,6 +360,7 @@ int read_height(int argc, char *argv[])
 	{
 		return h;
 	}
+
 	return DEFAULT_HEIGHT;
 }
 
@@ -373,5 +382,7 @@ int read_step(int argc, char *argv[])
 	{
 		return s;
 	}
+
 	return DEFAULT_STEP;
 }
+
