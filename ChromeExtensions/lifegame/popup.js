@@ -118,9 +118,9 @@ function canvasClick(e) {
   let y = e.clientY - canvas.offsetTop;
   let col = Math.floor(x / CELL_SIZE);
   let row = Math.floor(y / CELL_SIZE);
-  if(currentCells[col][row] > 0){
+  if (currentCells[col][row] > 0) {
     currentCells[col][row] = 0;
-  }else{
+  } else {
     currentCells[col][row] = 1;
   }
   drawCell(col, row, currentCells[col][row]);
