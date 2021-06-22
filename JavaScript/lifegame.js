@@ -14,8 +14,8 @@ function lifegame(state) {
             const a = [-1, 0, 1];
             for (const i of a) {
                 for (const j of a) {
-                    if (i != 0 || j != 0) {
-                        if (s[(x + i + s.length) % s.length][(y + j + s[x].length) % s[x].length] == 1) {
+                    if (i !== 0 || j !== 0) {
+                        if (s[(x + i + s.length) % s.length][(y + j + s[x].length) % s[x].length] === 1) {
                             c++;
                         }
                     }
