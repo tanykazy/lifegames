@@ -1,1 +1,1 @@
-# lifegame
+# lifegame.vim
