@@ -1,4 +1,4 @@
-# lifegame
+# lifegame.py
 
 ## Requirement
 
